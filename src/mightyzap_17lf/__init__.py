@@ -50,7 +50,7 @@ class MightyZap17Lf:
     @speed.setter
     def speed(self, speed: int):
         assert 0 < speed < 1000
-        self._write(MightyZap17Lf.REG_GOAL_POSITION, speed, device_id=self.id)
+        self._write(MightyZap17Lf.REG_GOAL_SPEED, speed, device_id=self.id)
 
     def _read(self, register: int, device_id: int | None = None) -> int:
         if device_id is None:
