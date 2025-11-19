@@ -3,7 +3,28 @@
 A Python library to control the [MightyZap 17Lf
 series](https://mightyzap.com/en/linear_actuator_intro/) of linear actuators.
 
-## CLI
+## Installation
+
+### As a CLI tool
+
+```bash
+uv tool install mightyzap-17lf
+```
+
+### As a Python library
+
+```bash
+mkdir project & cd project
+uv init
+uv add mightyzap-17lf
+uv run python
+>>> from mightyzap_17lf import MightyZap17Lf
+>>> mighty = MightyZap17Lf("COM4")
+>>> mighty.speed = 500
+>>> mighty.position = 10000
+```
+
+## CLI usage
 
 ```bash
 # Set position 8000
