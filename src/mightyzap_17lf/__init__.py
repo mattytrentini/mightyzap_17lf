@@ -40,7 +40,7 @@ class MightyZap17Lf:
 
     @position.setter
     def position(self, position: int):
-        assert 0 < position < 10_000
+        assert 0 <= position <= 10_000
         self._write(MightyZap17Lf.REG_GOAL_POSITION, position, device_id=self.id)
 
     @property
