@@ -64,3 +64,26 @@ v1.2.3
 $ mz COM4 serial_number
 4752
 ```
+
+### EEPROM (non-volatile) configuration
+
+The `accel`, `decel`, `speed-limit`, `min-pos-offset` and `max-pos-offset`
+commands read or write the actuator's EEPROM settings. Because EEPROM has a
+limited number of write cycles, writes require confirmation (use `--yes`/`-y`
+to skip the prompt in scripts) and a write that wouldn't change the stored
+value is skipped automatically:
+
+```bash
+# Read the current acceleration
+$ mz COM4 accel
+200
+# Write it (prompts for confirmation)
+$ mz COM4 accel 250
+accel is stored in EEPROM (limited write cycles). Change 200 -> 250? [y/N]: y
+accel set to 250
+# Non-interactive (e.g. in a script)
+$ mz COM4 speed-limit 800 --yes
+```
+
+The same confirmation applies to the low-level `register` command when the
+address falls in the EEPROM region (`0x00`–`0x32`).

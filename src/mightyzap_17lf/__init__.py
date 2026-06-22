@@ -13,6 +13,9 @@ class MightyZap17Lf:
     #     unlimited writes, reset on power cycle. Used for frequent control.
     # See https://mightyzap-emanual.netlify.app/en/actuator/mini17lf/
 
+    # Registers 0x00-0x32 are the non-volatile EEPROM region.
+    EEPROM_ADDRESS_MAX = 0x32
+
     # --- EEPROM (non-volatile, limited writes) ---
     REG_SERIAL_NUMBER = 0
     REG_FIRMWARE_VERSION = 1
@@ -42,6 +45,11 @@ class MightyZap17Lf:
         if not self.client:
             # todo(mst): Use a more appropriate exception
             raise RuntimeError("Invalid comms")
+
+    @classmethod
+    def is_eeprom_register(cls, address: int) -> bool:
+        """True if `address` is in the non-volatile EEPROM region (limited writes)."""
+        return 0 <= address <= cls.EEPROM_ADDRESS_MAX
 
     def configure(self) -> "_EepromConfig":
         """Unlock the EEPROM (non-volatile) configuration registers for writing.
