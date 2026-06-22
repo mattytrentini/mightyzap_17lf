@@ -24,6 +24,25 @@ uv run python
 >>> mighty.position = 10000
 ```
 
+### Configuring EEPROM (non-volatile) settings
+
+Settings such as `accel`, `decel`, `min_pos_offset`, `max_pos_offset` and
+`speed_limit` live in the actuator's EEPROM, which has a **limited number of
+write cycles**. They are readable directly but can only be *written* inside a
+`configure()` block, which also skips writes that wouldn't change the stored
+value:
+
+```python
+with mighty.configure() as cfg:
+    cfg.accel = 200
+    cfg.speed_limit = 800
+
+print(mighty.accel)  # reading is always allowed
+```
+
+For frequent control, use the RAM-backed `speed`, `current` and `position`
+properties instead — they have no write-cycle limit.
+
 ## CLI usage
 
 ```bash
